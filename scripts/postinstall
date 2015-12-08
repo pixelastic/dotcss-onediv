@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+base_dir=$(pwd)
+
+css_vendors=./app/styles/_vendors
+mkdir -p $css_vendors
+
+# Make normalize.css importable
+cd "$base_dir"
+
+mkdir -p $css_vendors/normalize && \
+cp ./node_modules/normalize.css/normalize.css $css_vendors/normalize/normalize.scss && \
+echo "Add normalize to scss vendors"
