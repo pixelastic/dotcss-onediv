@@ -77,13 +77,17 @@ $gol4:
         ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow
       ;
 
+p {
+  text-align: center;
+}
+
 .dotcss {
-  margin: 30px;
   width: $width;
   height: $height;
   background-color: $grey;
   position: relative;
   border-radius: 5px;
+  margin: 50px auto;
 
   &:before {
     content: "dot\A CSS";
