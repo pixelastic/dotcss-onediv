@@ -10,13 +10,13 @@ $yellow: #F9DF1C;
 $white: #FFF;
 
 // Canvas
-$width: 495px;
-$height: 220px;
+$width: 500px;
+$height: 225px;
 
 // dot
 $dot-size: 150px;
 $dot-left: 30px;
-$dot-top:20px;
+$dot-top: 20px;
 $dot-font-size: 50px;
 
 // CSS
@@ -30,8 +30,8 @@ $circle-columns: round($width / ($circle-size + $circle-gutter));
 $circle-lines: round($height / ($circle-size + $circle-gutter));
 
 $circles: ();
-$circle-offset-left: -$dot-size / 2 - $dot-left + $circle-size / 2 + $circle-gutter / 2;
-$circle-offset-top: -$dot-size / 2 - $dot-top + $circle-size / 2 + $circle-gutter / 2;
+$circle-offset-left: -$dot-size / 2 - $dot-left + $circle-size / 2 + $circle-gutter / 2 + 3px;
+$circle-offset-top: -$dot-size / 2 - $dot-top + $circle-size / 2 + $circle-gutter / 2 + 3px;
 $circle-offset-size: -($dot-size - $circle-size) / 2;
 @for $y from 0 to $circle-lines {
   @for $x from 0 to $circle-columns {
@@ -78,9 +78,12 @@ $gol4:
       ;
 
 .dotcss {
+  margin: 30px;
   width: $width;
   height: $height;
   background-color: $grey;
+  position: relative;
+  border-radius: 5px;
 
   &:before {
     content: "dot\A CSS";

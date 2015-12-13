@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "brunch": "1.8.5",
+    "gh-pages": "^0.8.0",
     "javascript-brunch": "1.7.1",
     "sass-brunch": "1.9.0"
   },
@@ -29,4 +30,3 @@
     "normalize.css": "3.0.3"
   }
 }
-
