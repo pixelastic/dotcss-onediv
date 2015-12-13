@@ -1,0 +1,121 @@
+// Normalize
+@import '_vendors/normalize/normalize';
+@import '_helpers/circles';
+
+
+// Colors
+$grey: #1D1A16;
+$black: #000;
+$yellow: #F9DF1C;
+$white: #FFF;
+
+// Canvas
+$width: 495px;
+$height: 220px;
+
+// dot
+$dot-size: 150px;
+$dot-left: 30px;
+$dot-top:20px;
+$dot-font-size: 50px;
+
+// CSS
+$css-font-size: 100px;
+
+// background circles
+$circle-size: 8px;
+$circle-gutter: 3px;
+$circle-spacing: $circle-size + $circle-gutter;
+$circle-columns: round($width / ($circle-size + $circle-gutter));
+$circle-lines: round($height / ($circle-size + $circle-gutter));
+
+$circles: ();
+$circle-offset-left: -$dot-size / 2 - $dot-left + $circle-size / 2 + $circle-gutter / 2;
+$circle-offset-top: -$dot-size / 2 - $dot-top + $circle-size / 2 + $circle-gutter / 2;
+$circle-offset-size: -($dot-size - $circle-size) / 2;
+@for $y from 0 to $circle-lines {
+  @for $x from 0 to $circle-columns {
+    $left: ($circle-offset-left + ($x * $circle-spacing));
+    $top: ($circle-offset-top + ($y * $circle-spacing));
+    $circles: append($circles, ($left) ($top) 0px ($circle-offset-size) $black, comma);
+  }
+}
+
+// Game of life
+$gol-offset-left: $circle-offset-left + (18 * $circle-spacing);
+$gol-offset-top: $circle-offset-top + (13 * $circle-spacing);
+
+$gol1:
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 1 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 1 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow
+      ;
+$gol-offset-left: $gol-offset-left + (5 * $circle-spacing);
+$gol2:
+        ($gol-offset-left + 1 * $circle-spacing) ($gol-offset-top + 1 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 1 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow
+      ;
+$gol-offset-left: $gol-offset-left + (5 * $circle-spacing);
+$gol3:
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 1 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 1 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow
+      ;
+$gol-offset-left: $gol-offset-left + (5 * $circle-spacing);
+$gol4:
+        ($gol-offset-left + 1 * $circle-spacing) ($gol-offset-top + 1 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 3 * $circle-spacing) ($gol-offset-top + 2 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 1 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow,
+        ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow
+      ;
+
+.dotcss {
+  width: $width;
+  height: $height;
+  background-color: $grey;
+
+  &:before {
+    content: "dot\A CSS";
+    // Yellow dot
+    background: $yellow;
+    height: $dot-size;
+    width: $dot-size;
+    border-radius: 50%;
+    // Positionning
+    position: absolute;
+    left: $dot-left;
+    top: $dot-top;
+
+    white-space: pre; // Needed for first-line
+
+    // text
+    line-height: $dot-size;
+    text-align: center;
+    font-size: $css-font-size;
+
+    $offset-left: $dot-size + 30px;
+    $offset-top: -$css-font-size - $dot-font-size;
+    color: transparent;
+    text-shadow: ($offset-left) ($offset-top) 0px $white;
+
+    box-shadow: 
+                $gol1,
+                $gol2,
+                $gol3,
+                $gol4,
+                $circles;
+  }
+  &:first-line {
+    font-size: $dot-font-size;
+    line-height: $dot-size;
+  }
+}
+

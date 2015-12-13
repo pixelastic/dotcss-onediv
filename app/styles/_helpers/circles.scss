@@ -1,0 +1,9 @@
+@function circle($color, $diameter, $left, $top) {
+  $radius: $diameter / 2;
+  // Note: We add 1px to help in the aliasing
+  @return radial-gradient(circle at $left $top,
+                          $color $radius,
+                          transparent ($radius + 1)
+                        );
+}
+
