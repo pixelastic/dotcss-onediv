@@ -1,7 +1,7 @@
 // Normalize
 @import '_vendors/normalize/normalize';
 @import '_helpers/circles';
-
+@import '_helpers/fonts';
 
 // Colors
 $grey: #1D1A16;
@@ -20,7 +20,7 @@ $dot-top: 20px;
 $dot-font-size: 50px;
 
 // CSS
-$css-font-size: 100px;
+$css-font-size: 140px;
 
 // background circles
 $circle-size: 8px;
@@ -89,6 +89,11 @@ p {
   border-radius: 5px;
   margin: 50px auto;
 
+  // If I don't set the font family and size in the parent, the content of the
+  // yellow dot tends to disappear when the font is loaded...
+  font-family: MuseoSans700;
+  font-size: $css-font-size;
+
   &:before {
     content: "dot\A CSS";
     // Yellow dot
@@ -104,11 +109,11 @@ p {
     white-space: pre; // Needed for first-line
 
     // text
-    line-height: $dot-size;
+    line-height: $height;
     text-align: center;
     font-size: $css-font-size;
 
-    $offset-left: $dot-size + 30px;
+    $offset-left: $dot-size + 15px;
     $offset-top: -$css-font-size - $dot-font-size;
     color: transparent;
     text-shadow: ($offset-left) ($offset-top) 0px $white;
@@ -123,6 +128,7 @@ p {
   &:first-line {
     font-size: $dot-font-size;
     line-height: $dot-size;
+    font-family: Arial;
   }
 }
 
