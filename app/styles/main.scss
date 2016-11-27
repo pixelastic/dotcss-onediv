@@ -1,37 +1,36 @@
 // Normalize
 @import '_vendors/normalize/normalize';
-@import '_helpers/circles';
 @import '_helpers/fonts';
 
 // Colors
+$yellow: #F9DF1C;
 $grey: #1D1A16;
 $black: #000;
-$yellow: #F9DF1C;
 $white: #FFF;
 
 // Canvas
-$width: 500px;
-$height: 225px;
+$width: 2 * 500px;
+$height: 2 * 225px;
 
 // dot
-$dot-size: 150px;
-$dot-left: 30px;
-$dot-top: 20px;
-$dot-font-size: 50px;
+$dot-size: 2 * 150px;
+$dot-left: 2 * 30px;
+$dot-top: 2 * 20px;
+$dot-font-size: 2 * 50px;
 
 // CSS
-$css-font-size: 140px;
+$css-font-size: 2 * 140px;
 
 // background circles
-$circle-size: 8px;
-$circle-gutter: 3px;
+$circle-size: 2 * 8px;
+$circle-gutter: 2 * 3px;
 $circle-spacing: $circle-size + $circle-gutter;
 $circle-columns: round($width / ($circle-size + $circle-gutter));
 $circle-lines: round($height / ($circle-size + $circle-gutter));
 
 $circles: ();
-$circle-offset-left: -$dot-size / 2 - $dot-left + $circle-size / 2 + $circle-gutter / 2 + 3px;
-$circle-offset-top: -$dot-size / 2 - $dot-top + $circle-size / 2 + $circle-gutter / 2 + 3px;
+$circle-offset-left: -$dot-size / 2 - $dot-left + $circle-size / 2 + $circle-gutter / 2 + 6px;
+$circle-offset-top: -$dot-size / 2 - $dot-top + $circle-size / 2 + $circle-gutter / 2 + 6px;
 $circle-offset-size: -($dot-size - $circle-size) / 2;
 @for $y from 0 to $circle-lines {
   @for $x from 0 to $circle-columns {
@@ -77,58 +76,95 @@ $gol4:
         ($gol-offset-left + 2 * $circle-spacing) ($gol-offset-top + 3 * $circle-spacing) 0px ($circle-offset-size) $yellow
       ;
 
-p {
-  text-align: center;
-}
 
-.dotcss {
+.dotcss-background {
   width: $width;
   height: $height;
   background-color: $grey;
-  position: relative;
   border-radius: 5px;
-  margin: 50px auto;
+}
 
-  // If I don't set the font family and size in the parent, the content of the
-  // yellow dot tends to disappear when the font is loaded...
-  font-family: MuseoSans700;
-  font-size: $css-font-size;
-
+.dotcss-main-circle {
+  position: relative;
   &:before {
-    content: "dot\A CSS";
-    // Yellow dot
+    content:"";
     background: $yellow;
     height: $dot-size;
     width: $dot-size;
     border-radius: 50%;
-    // Positionning
     position: absolute;
     left: $dot-left;
     top: $dot-top;
+  }
+}
 
-    white-space: pre; // Needed for first-line
+.dotcss-background-circle-simple {
+  overflow: hidden;
+  &:before {
+    box-shadow: -193px -173px 0px -142px #FF4136,
+                700px -100px 0px 100px #00449E,
+                300px 75px 0px -100px #19A974;
+  }
+}
 
-    // text
-    line-height: $height;
-    text-align: center;
+.dotcss-background-circles {
+  &:before {
+    box-shadow: $circles;
+  }
+}
+
+.dotcss-gol {
+  &:before {
+    box-shadow: $gol1, $gol2, $gol3, $gol4, $circles;
+  }
+}
+
+.dotcss-text-css {
+  &:before {
+    content: "CSS";
+    font-family: Museo;
     font-size: $css-font-size;
+    line-height: $dot-size;
+    color: transparent;
+    text-shadow: ($dot-size + 15px) 0px 0px $white;
+  }
+  &.visible:before {
+    color: rgba(0,255,255,.4);
+  }
+}
 
+.dotcss-text-dotcss {
+  overflow: hidden;
+  &:before {
+    font-family: Museo;
+    font-size: $css-font-size;
+    line-height: $dot-size;
+
+    content: "dot\A CSS";
+    white-space: pre;
+    text-align: center;
     $offset-left: $dot-size + 15px;
-    $offset-top: -$css-font-size - $dot-font-size;
+    $offset-top: -$dot-size;
     color: transparent;
     text-shadow: ($offset-left) ($offset-top) 0px $white;
-
-    box-shadow: 
-                $gol1,
-                $gol2,
-                $gol3,
-                $gol4,
-                $circles;
+  }
+  &.visible:before {
+    color: rgba(0,255,255,.4);
   }
   &:first-line {
+    font-family: Arial;
     font-size: $dot-font-size;
     line-height: $dot-size;
-    font-family: Arial;
+    color: black;
   }
+}
+
+
+.dotcss {
+  @extend .dotcss-background;
+  @extend .dotcss-main-circle;
+  @extend .dotcss-background-circles;
+  @extend .dotcss-gol;
+  @extend .dotcss-text-dotcss;
 }
 
